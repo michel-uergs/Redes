@@ -25,7 +25,7 @@ Player players_[MAX_PLAYERS];
 
 int kbhit(void);
 void Input();
-void Draw(int id);
+void Draw();
 
 int main() 
 {
@@ -90,7 +90,7 @@ int main()
             break;
         }
 
-        Draw(id);
+        Draw();
         usleep(100000);  // Limite de FPS
     }
 
@@ -99,53 +99,17 @@ int main()
     return 0;
 }
 
-void Draw(int id) 
+void Draw() 
 {
     bool print;
     system("clear");
     cout << endl;
 
-    for (int i = 0; i < HEIGHT; i++) {
-        for (int j = 0; j < WIDTH; j++) {
-            switch (Map[i][j]) {
-                case '#': // Parede
-                    cout << RED << Map[i][j] << RESET;
-                    break;
-
-                case '*': // Comida
-                    cout << YELLOW << Map[i][j] << RESET;
-                    break;
-
-                case '@': // Cabeça do jogador
-                    // Se o jogador atual (id) for o cliente local, usa cor especial (por exemplo, CYAN)
-                    if (players_[id].head.x == j && players_[id].head.y == i)
-                        cout << CYAN << Map[i][j] << RESET;
-                    else
-                        cout << BLUE << Map[i][j] << RESET;
-                    break;
-
-                case '0': // Corpo do jogador
-                    print = false;
-                    for (int k = 0; k < players_[id].BodyLength; k++) {
-                        if (players_[id].body[k].x == j && players_[id].body[k].y == i) 
-                        {
-                            // Se for o corpo do jogador local, desenha com cor diferente (por exemplo, CYAN)
-                            if (id == k) {
-                                cout << CYAN << Map[i][j] << RESET;
-                            } else {
-                                cout << GREEN << Map[i][j] << RESET;
-                            }
-                            print = true;
-                        }
-                    }
-                    if (!print)
-                        cout << RESET << Map[i][j];
-                    break;
-
-                default:
-                    cout << RESET << Map[i][j];
-                    break;
-            }
+    for (int i = 0; i < HEIGHT; i++) 
+    {
+        for (int j = 0; j < WIDTH; j++) 
+        {
+            cout << Map[i][j];
         }
         cout << endl;
     }

@@ -1,21 +1,26 @@
 #!/bin/bash
 
+
+# Compile Client 
+g++ ./src/client.cpp -o ./src/client
+
+if [ $? -eq 0 ]
+then
+    echo 'Client compile!'
+else
+    rm ./src/server && rm ./src/client
+    echo 'Client compile error!'
+fi
+
+
 # Compile server 
 g++ ./src/server.cpp -o ./src/server
 
 if [ $? -eq 0 ]
 then
-    # Compile client
-    g++ ./src/client.cpp -o ./src/client 
-
-    if [ $? -eq 0 ]
-    then
-        # run server
-        ./src/server
-    else
-        echo 'Client compile error!'
-        rm ./src/server && rm ./src/client
-    fi
+    
+    # run server
+    ./src/server
 
 else
     rm ./src/server && rm ./src/client

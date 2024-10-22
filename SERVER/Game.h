@@ -140,6 +140,11 @@ private:
     };
 
 public:
+    
+    Fruit getFruit()
+    {
+        return this->fruit;
+    }
 
     int getCountPlyers()
     {
